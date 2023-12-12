@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, HasMany } from '@ioc:Adonis/Lucid/Orm'
-import Compte from "App/Models/Compte";
+import Compte from 'App/Models/Compte'
 
 export default class User extends BaseModel {
   @column({ isPrimary: true })
@@ -20,8 +20,6 @@ export default class User extends BaseModel {
 
   @hasMany(() => Compte)
   public comptesUsed: HasMany<typeof Compte>
-
-
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
