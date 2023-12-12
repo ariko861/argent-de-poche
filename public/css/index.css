@@ -1,0 +1,43 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #333;
+}
+
+h1 {
+  color: #fff;
+}
+
+button {
+  width: 50%;
+  margin-bottom: 20px;
+  padding: 10px;
+  font-size: 20px;
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.main-menu {
+  width: 100%;
+  text-align: center;
+}
+
+
+.main-menu :nth-child(3n){
+  background-color: #4CAF50;
+}
+
+.main-menu :nth-child(3n+1){
+  background-color: #2196F3;
+}
+
+.main-menu :nth-child(3n+2){
+  background-color: #f44336;
+}

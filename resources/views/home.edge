@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Menu principal</title>
+    <link rel="stylesheet" href="/css/index.css">
+
+    <script src="/js/index.js"></script>
+</head>
+<body>
+    <h1>Menu principal</h1>
+
+    <div class="main-menu">
+    @each(id in ids)
+        <button id="compte{{id}}" onclick="window.location.href='compte/{{id}}'">compte {{id}}</button>
+    @end
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Compte {{id}}</title>
+    <style>
+ body {
+        font-family: Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #333;
+    }
+
+    .container {
+        background-color: #fff;
+        border-radius: 5px;
+        padding: 20px;
+        width: 80%;
+        max-width: 600px;
+        text-align: center;
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    }
+
+    h1 {
+        color: #2196F3;
+    }
+
+    input, button {
+        width: 90%;
+        margin-bottom: 10px;
+        padding: 10px;
+    }
+
+    button {
+        border: none;
+        color: white;
+        cursor: pointer;
+    }
+
+    #ajouter {
+        background-color: #4CAF50;
+    }
+
+    #soustraire {
+        background-color: #f44336;
+    }
+
+    #renommerBtn, #changerMontantParMinute {
+        background-color: #2196F3;
+    }
+
+    #retour {
+        background-color: #555;
+    }
+
+    @media screen and (max-width: 600px) {
+        .container {
+            width: 90%;
+        }
+
+        input, button {
+            width: 100%;
+        }
+    }
+    </style>
+
+</head>
+<body>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <div class="container">
+        <h1 id="nom">Compte {{id}}</h1>
+        <input id="renommerInput" type="text" placeholder="Nouveau nom" />
+        <button id="renommerBtn" onclick="renommer()">Renommer</button>
+        <p id="total">Total d'argent de poche : 0 €</p>
+        <input id="input" type="number" min="0" placeholder="Montant à ajouter ou à soustraire" />
+        <button id="ajouter" onclick="ajouter()">Ajouter</button>
+        <button id="soustraire" onclick="soustraire()">Soustraire</button>
+        <p id="montantParMinute">Montant versé par semaine : 10 €</p>
+<input id="inputMontantParMinute" type="number" min="0" placeholder="Nouveau montant par semaine" />
+<button id="changerMontantParMinute" onclick="changerMontantParMinute()">Changer le montant par semaine</button>
+        <button id="retour" onclick="location.href='/'">Retour au menu</button>
+    </div>
+
+    <script>
+var total = localStorage.getItem('total{{id}}') ? Number(localStorage.getItem('total{{id}}')) : 0;
+document.getElementById("total").textContent = "Total d'argent de poche : " + total + " €";
+
+function renommer() {
+    var nouveauNom = document.getElementById("renommerInput").value;
+    if (nouveauNom === "") {
+        alert("Veuillez entrer un nouveau nom.");
+        return;
+    }
+
+    document.getElementById("nom").textContent = nouveauNom;
+    localStorage.setItem('nom{{id}}', nouveauNom);
+    document.getElementById("renommerInput").value = "";
+}
+
+window.onload = function() {
+    var nom = localStorage.getItem('nom{{id}}');
+    if(nom !== null) {
+        document.getElementById("nom").textContent = nom;
+    }
+}
+
+
+function ajouter() {
+    var montant = document.getElementById("input").value;
+    if (montant === "") {
+        alert("Veuillez entrer un montant.");
+        return;
+    }
+
+    total += Number(montant);
+    localStorage.setItem('total{{id}}', total);
+    document.getElementById("total").textContent = "Total d'argent de poche : " + total + " €";
+    document.getElementById("input").value = "";
+}
+
+function soustraire() {
+    var montant = document.getElementById("input").value;
+    if (montant === "") {
+        alert("Veuillez entrer un montant.");
+        return;
+    }
+
+    total -= Number(montant);
+    localStorage.setItem('total{{id}}', total);
+    document.getElementById("total").textContent = "Total d'argent de poche : " + total + " €";
+    document.getElementById("input").value = "";
+}
+
+
+var montantParMinute = localStorage.getItem('montantParMinute{{id}}') ? Number(localStorage.getItem('montantParMinute{{id}}')) : 10;
+document.getElementById("montantParMinute").textContent = "Montant versé par semaine : " + montantParMinute + " €";
+
+function changerMontantParMinute() {
+    var nouveauMontant = document.getElementById("inputMontantParMinute").value;
+    if (nouveauMontant === "") {
+        alert("Veuillez entrer un nouveau montant.");
+        return;
+    }
+
+    montantParMinute = Number(nouveauMontant);
+    localStorage.setItem('montantParMinute{{id}}', montantParMinute);
+    document.getElementById("montantParMinute").textContent = "Montant versé par semaine : " + montantParMinute + " €";
+    document.getElementById("inputMontantParMinute").value = "";
+}
+
+setInterval(function() {
+    total += montantParMinute; // ajouter le montant spécifié toutes les minutes
+    localStorage.setItem('total{{id}}', total);
+    document.getElementById("total").textContent = "Total d'argent de poche : " + total + " €";
+}, 604800000); // 60000 millisecondes = 1 minute
+
+
+    </script>
+</body>
+</html>
