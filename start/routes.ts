@@ -34,9 +34,34 @@ Route.get('/', async ({ view }) => {
   })
 })
 
+Route.get('/compte', async({response}) => {
+  response.redirect().toPath('/')
+})
+
+
 Route.get('/compte/:id', async ({ params, view }) => {
   return view.render('compte', {
     id: params.id,
+  })
+})
+
+Route.get('/temps/:ville', async ({ params, view }) => {
+  
+  let climat = {
+    'chastres': 'nuageux',
+    'bruxelles' : 'ensoleillé',
+    'gand' : 'fumée',
+  }
+
+  let temps = climat[params.ville]
+  if (!temps) {
+    temps = 'pluvieux'
+  } 
+
+  return view.render('climat', { 
+    ville : params.ville, 
+    temps : temps,
+    color: 'red',
   })
 })
 
