@@ -8,7 +8,9 @@
 </head>
 <body>
     <h1>Menu principal</h1>
-
+    @if(auth.isLoggedIn)
+        <p> Hello {{ auth.user.name }} </p>
+    @endif
     <div class="main-menu">
     @each(id in ids)
         <button id="compte{{id}}" onclick="window.location.href='compte/{{id}}'">compte {{id}}</button>

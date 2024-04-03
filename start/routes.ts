@@ -19,24 +19,65 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import User from 'App/Models/User'
 
 // Route.get('/', async ({ view }) => {
 //   return view.render('welcome')
 // })
 
-Route.get('/', async ({ view }) => {
+Route.get('/', async ({ auth, view }) => {
   let ids : number[] = []
   for (let i=1; i<=3; i++){
     ids.push(i)
   }
+  await auth.use('web').authenticate()
   return view.render('home', {
     ids: ids,
   })
 })
 
+Route.get('/logout', async({ auth, response }) => {
+  await auth.use('web').logout()
+  response.redirect('/login')
+})
+
 Route.get('/compte', async({response}) => {
   response.redirect().toPath('/')
 })
+
+
+Route.get('/login', async({view}) => {
+  return view.render('login')
+})
+
+Route.post('login', async ({ auth, request, response }) => {
+  const email = request.input('email')
+  const password = request.input('password')
+
+  try {
+    await auth.use('web').attempt(email, password)
+    console.log(auth.user)
+    response.redirect('/')
+  } catch {
+    return response.badRequest('Invalid credentials')
+  }
+})
+
+Route.get('/register', async({view}) => {
+  return view.render('register')
+})
+
+Route.post('/register', async({request})=> {
+  console.log(request.body())
+  const user = new User()
+  user.email = request.input('email')
+  user.name = request.input('name')
+  user.password = request.input('password')
+
+  await user.save()
+
+})
+
 
 
 Route.get('/compte/:id', async ({ params, view }) => {
