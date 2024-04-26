@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Menu principal</title>
-    <link rel="stylesheet" href="/css/index.css">
+@layout('layouts/main')
+@set('title', 'Accueil')
 
-    <script src="/js/index.js"></script>
-</head>
-<body>
+@section('body')
+
     <h1>Menu principal</h1>
     @if(auth.isLoggedIn)
         <p> Hello {{ auth.user.name }} </p>
@@ -17,5 +13,5 @@
     @end
     </div>
 
-</body>
-</html>
+@end
+

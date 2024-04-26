@@ -41,3 +41,66 @@ button {
 .main-menu :nth-child(3n+2){
   background-color: #f44336;
 }
+
+
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: #333;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 20px;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+  color: #2196F3;
+}
+
+input, button {
+  width: 90%;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
+button {
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+#ajouter {
+  background-color: #4CAF50;
+}
+
+#soustraire {
+  background-color: #f44336;
+}
+
+#renommerBtn, #changerMontantParMinute {
+  background-color: #2196F3;
+}
+
+#retour {
+  background-color: #555;
+}
+
+@media screen and (max-width: 600px) {
+  .container {
+    width: 90%;
+  }
+
+  input, button {
+    width: 100%;
+  }
+}

@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Inscription</title>
-</head>
-<body>
+@layout('layouts/main')
+@set('title', 'Register')
+
+@section('body')
     <p>Veuillez créer votre compte de responsable</p>
     <form id="registerForm" method="POST">
         <label for="name">Nom:</label>
@@ -16,12 +13,4 @@
         <button type="submit">Inscription</button>
     </form>
 
-    {{--  <script>
-        document.getElementById('registerForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            // Ici, vous pouvez ajouter une validation ou un envoi de données vers le serveur
-            alert('Formulaire d\'inscription soumis');
-        });
-    </script>  --}}
-</body>
-</html>
+@end

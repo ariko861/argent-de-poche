@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Connexion</title>
-</head>
-<body>
+@layout('layouts/main')
+@set('title', 'Login')
+
+@section('body')
     <form id="loginForm" method="POST">
         <label for="email">Email:</label>
         <input type="email" id="email" name="email" required>
@@ -13,6 +10,4 @@
         <button type="submit">Connexion</button>
     </form>
 
-    
-</body>
-</html>
+@end
