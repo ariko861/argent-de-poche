@@ -45,8 +45,19 @@ Route.get('/compte', async({response}) => {
   response.redirect().toPath('/')
 })
 
+Route.get('/delete-all-users', async({response}) => {
+  await User.query().delete() // cela supprime tous les utilisateurs !!!
+  response.redirect('/login')
+})
 
-Route.get('/login', async({view}) => {
+
+Route.get('/login', async ({view, response}) => {
+  const users = await User.all()
+  console.log(users)
+  // eslint-disable-next-line eqeqeq
+  if (users.length == 0) {
+    response.redirect('/register')
+  }
   return view.render('login')
 })
 
@@ -63,20 +74,23 @@ Route.post('login', async ({ auth, request, response }) => {
   }
 })
 
-Route.get('/register', async({view}) => {
-  return view.render('register')
-})
+Route.group(() => { // on groupe les routes register pour y appliquer middleware
 
-Route.post('/register', async({request})=> {
-  console.log(request.body())
-  const user = new User()
-  user.email = request.input('email')
-  user.name = request.input('name')
-  user.password = request.input('password')
+  Route.get('/register', async ({view}) => {
+    return view.render('register')
+  })
 
-  await user.save()
+  Route.post('/register', async({request})=> {
+    console.log(request.body())
+    const user = new User()
+    user.email = request.input('email')
+    user.name = request.input('name')
+    user.password = request.input('password')
 
-})
+    await user.save()
+  })
+
+})//.middleware('userExists') // On vérifie qu'aucun utilisateur existe pour la registration
 
 
 
@@ -87,7 +101,7 @@ Route.get('/compte/:id', async ({ params, view }) => {
 })
 
 Route.get('/temps/:ville', async ({ params, view }) => {
-  
+
   let climat = {
     'chastres': 'nuageux',
     'bruxelles' : 'ensoleillé',
@@ -97,10 +111,10 @@ Route.get('/temps/:ville', async ({ params, view }) => {
   let temps = climat[params.ville]
   if (!temps) {
     temps = 'pluvieux'
-  } 
+  }
 
-  return view.render('climat', { 
-    ville : params.ville, 
+  return view.render('climat', {
+    ville : params.ville,
     temps : temps,
     color: 'red',
   })
