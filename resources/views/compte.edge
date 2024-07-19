@@ -3,20 +3,31 @@
 
 @section('body')
     <div class="container">
-        <h1 id="nom">Compte {{id}}</h1>
-        <input id="renommerInput" type="text" placeholder="Nouveau nom" />
-        <button id="renommerBtn" onclick="renommer()">Renommer</button>
-        <p id="total">Total d'argent de poche : 0 €</p>
-        <input id="input" type="number" min="0" placeholder="Montant à ajouter ou à soustraire" />
-        <button id="ajouter" onclick="ajouter()">Ajouter</button>
-        <button id="soustraire" onclick="soustraire()">Soustraire</button>
-        <p id="montantParMinute">Montant versé par semaine : 10 €</p>
-<input id="inputMontantParMinute" type="number" min="0" placeholder="Nouveau montant par semaine" />
-<button id="changerMontantParMinute" onclick="changerMontantParMinute()">Changer le montant par semaine</button>
-        <button id="retour" onclick="location.href='/'">Retour au menu</button>
+        <form id="compteForm" method="POST">
+            @if(!compte) 
+                <h1 id="nom">Nouveau compte</h1>
+            @else
+                <h1 id="nom">Modification compte {{compte.id}}</h1>
+            @endif
+            
+            <input id="renommerInput" type="text" placeholder="Nouveau nom" name="name" />
+            {{-- <button id="renommerBtn" onclick="renommer()">Renommer</button> --}}
+            <p id="total">Total d'argent de poche : 0 €</p>
+            <input id="input" type="number" min="0" placeholder="Premier montant compte" name="total" />
+            {{-- <button id="ajouter" onclick="ajouter()">Ajouter</button> --}}
+            {{-- <button id="soustraire" onclick="soustraire()">Soustraire</button> --}}
+            <p id="montantParMinute">Montant versé par semaine : 10 €</p>
+             <input type="number" min="0" placeholder="Nouveau montant par semaine" name="salary"/> 
+             {{-- id="inputMontantParMinute" --}}
+            {{-- <button id="changerMontantParMinute" onclick="changerMontantParMinute()">Changer le montant par semaine</button> --}}
+            
+            <button id="retour" onclick="location.href='/'">Retour au menu</button>
+
+            <button type="submit" >Sauvegarder</button>
+        </form>
     </div>
 
-    <script>
+    {{-- <script>
 var total = localStorage.getItem('total{{id}}') ? Number(localStorage.getItem('total{{id}}')) : 0;
 document.getElementById("total").textContent = "Total d'argent de poche : " + total + " €";
 
@@ -90,6 +101,6 @@ setInterval(function() {
 }, 604800000); // 60000 millisecondes = 1 minute
 
 
-    </script>
+    </script> --}}
 
 @end

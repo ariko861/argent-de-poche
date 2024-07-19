@@ -8,9 +8,16 @@
         <p> Hello {{ auth.user.name }} </p>
     @endif
     <div class="main-menu">
-    @each(id in ids)
-        <button id="compte{{id}}" onclick="window.location.href='compte/{{id}}'">compte {{id}}</button>
+    @each(compte in comptes)
+        <button id="compte{{compte.id}}" onclick="window.location.href='compte/{{compte.id}}'">{{compte.name}}</button>
+        <p>salary : {{compte.salary}}</p>
+        <p>Total : {{compte.total}}</p>
     @end
+
+    @if(auth.user?.type == 'manager')
+        <a href="/new_compte"><button>Créer compte</button></a>
+    @endif
+
     </div>
 
 @end
